@@ -2,34 +2,102 @@
     #: import time __main__.time
 
     name: 'main'
+    onoff: onoff
+    motor: motor
+    counter: counter
+    motorlabel: motorlabel
+    slider: slider
+    changescreen: changescreen
     FloatLayout:
         size_hint: None, None
 
     DPEAButton:
-        id: test_button
-        text: 'test'
+        id: onoff
+        text: "off"
         size: 100, 100
         x: root.width * 0.75
         y: root.height * 0.5
         color: 0, 1, 0, 1
-        on_press: root.pressed()
+        on_press: root.pressed1()
 
     DPEAButton:
-        text: "test2"
+        id: counter
+        text: "0"
         size: 100, 100
         x: root.width * 0.25
         y: root.height * 0.5
         color: 1, 0, 0, 1
-        on_press: root.pressed()
+        on_press: root.count()
 
-    SelfUpdatingLabel:
-        id: time_label
-        size_hint: None, None
+    DPEAButton:
+        id: motor
+        text: "motor"
+        size: 100, 100
+        x: root.width * 0.25
+        y: root.height * 0.25
+        color: 1, 0, 0, 1
+        on_press: root.motorswitch()
+
+    Label:
+        id: motorlabel
+        text: "motor on"
+        x: root.width * -0.20
+        y: root.height * -0.3
         font_size: 30
-        update_property: time.now
-        update_property_parameters: None
-        center_x: root.width * 0.5
-        center_y: root.height * 0.45
+        color: 1, 1, 1, 1
+        bold: True
+        outline_width: self.font_size * 0.1
+        outline_color: 0, 0, 0
+
+    Slider:
+        id: slider
+        step: 1
+        size_hint: 1, .2
+
+    Label:
+        text: "position"
+        x: root.width * 0
+        y: root.height * -0.35
+        font_size: 30
+        color: 1, 1, 1, 1
+        bold: True
+        outline_width: self.font_size * 0.1
+        outline_color: 0, 0, 0
+
+    Label:
+        text: str(slider.value)
+        x: root.width * 0
+        y: root.height * -0.45
+        font_size: 30
+        color: 1, 1, 1, 1
+        bold: True
+        outline_width: self.font_size * 0.1
+        outline_color: 0, 0, 0
+
+    ImageButton:
+        id: changescreen
+        size_hint: .15, .15
+        x: root.width * 0.75
+        y: root.height * 0.25
+        source: "E.jpeg"
+        on_press: root.tootherscreen()
+
+<EScreen>:
+
+    name: 'E'
+    changescreen: changescreen
+
+    ImageButton:
+        id: changescreen
+        size_hint: 1, 1
+        source: "E.jpeg"
+        on_press: root.tootherscreen()
+
+    Label:
+        text: "(I'm Sorry)"
+        x: root.width * 0
+        y: root.height * -0.45
+        font_size: 30
         color: 1, 1, 1, 1
         bold: True
         outline_width: self.font_size * 0.1

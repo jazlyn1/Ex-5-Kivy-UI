@@ -25,7 +25,7 @@ MIXPANEL = MixPanel("Project Name", MIXPANEL_TOKEN)
 SCREEN_MANAGER = ScreenManager()
 MAIN_SCREEN_NAME = 'main'
 ADMIN_SCREEN_NAME = 'admin'
-
+E_SCREEN_NAME = 'E'
 
 class ProjectNameGUI(App):
     """
@@ -48,12 +48,24 @@ class MainScreen(Screen):
     Class to handle the main screen and its associated touch events
     """
 
-    def pressed(self):
+    def pressed1(self):
         """
-        Function called on button touch event for button with id: testButton
-        :return: None
+        button that toggles on/off when pressed
         """
-        print("Callback from MainScreen.pressed()")
+        if self.onoff.text == "off":
+            self.onoff.text = "on"
+        else:
+            self.onoff.text = "off"
+
+    def count(self):
+        self.counter.text = str(int(self.counter.text) + 1)
+        print(self.counter.text)
+
+    def motorswitch(self):
+        if self.motorlabel.text == "motor on":
+            self.motorlabel.text = "motor off"
+        else:
+            self.motorlabel.text = "motor on"
 
     def admin_action(self):
         """
@@ -62,6 +74,14 @@ class MainScreen(Screen):
         :return: None
         """
         SCREEN_MANAGER.current = 'passCode'
+
+    def tootherscreen(self):
+            SCREEN_MANAGER.current = 'E'
+
+class EScreen(Screen):
+
+    def tootherscreen(self):
+        SCREEN_MANAGER.current = 'main'
 
 
 class AdminScreen(Screen):
@@ -116,6 +136,7 @@ SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
 SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
 SCREEN_MANAGER.add_widget(AdminScreen(name=ADMIN_SCREEN_NAME))
+SCREEN_MANAGER.add_widget(EScreen(name=E_SCREEN_NAME))
 
 """
 MixPanel
